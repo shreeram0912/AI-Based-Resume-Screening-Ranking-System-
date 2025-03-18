@@ -4,7 +4,7 @@ thinc==8.3.4
 pdfminer3
 pandas
 yt-dlp
-pafy
+git+https://github.com/np1/pafy.git
 plotly
 pymysql
 streamlit-tags
