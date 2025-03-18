@@ -12,4 +12,5 @@ nltk
 docx2txt
 pdfminer.six
 pyresparser
+# Force Streamlit to reinstall dependencies
 
