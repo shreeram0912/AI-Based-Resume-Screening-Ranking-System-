@@ -2,12 +2,17 @@ import os
 os.system("pip uninstall pafy -y")
 
 import spacy
+import os
 import subprocess
+
+# Ensure spacy model is installed
+spacy_model = "en_core_web_sm"
 try:
-    nlp = spacy.load("en_core_web_sm")
+    nlp = spacy.load(spacy_model)
 except OSError:
-    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
-    nlp = spacy.load("en_core_web_sm")
+    os.system(f"python -m spacy download {spacy_model}")
+    nlp = spacy.load(spacy_model)
+
 import streamlit as st
 import pandas as pd
 import base64,random
