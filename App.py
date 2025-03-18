@@ -3,7 +3,6 @@ import pandas as pd
 import base64,random
 import time,datetime
 #libraries to parse the resume pdf files
-from pyresparser import ResumeParser
 from pdfminer3.layout import LAParams, LTTextBox
 from pdfminer3.pdfpage import PDFPage
 from pdfminer3.pdfinterp import PDFResourceManager
@@ -18,7 +17,24 @@ import pafy #for uploading youtube videos
 import yt_dlp
 import plotly.express as px #to create visualisations at the admin session
 import nltk
+import os
+# Define a custom path for NLTK data
+nltk_data_path = os.path.join(os.getcwd(), "nltk_data")
+os.makedirs(nltk_data_path, exist_ok=True)  # Create the directory if it doesn't exist
+nltk.data.path.append(nltk_data_path)  # Add this directory to NLTK's data path
+# Download required NLTK resources
+nltk.download('stopwords', download_dir=nltk_data_path)
+nltk.download('punkt', download_dir=nltk_data_path)
 nltk.download('stopwords')
+nltk.download('punkt')  # Required for pyresparser
+import spacy
+# Ensure the Spacy language model is available
+try:
+    spacy.load("en_core_web_sm")
+except:
+    spacy.cli.download("en_core_web_sm")
+    spacy.load("en_core_web_sm")
+from pyresparser import ResumeParser
 
 def fetch_yt_video(link):
     """Fetch video title from YouTube link"""
