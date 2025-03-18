@@ -2,16 +2,34 @@ import os
 os.system("pip uninstall pafy -y")
 
 import os
-# Ensure spacy and its model are installed
+
+# Remove old spacy cache and models
+os.system("rm -rf ~/.cache/pip")
+os.system("rm -rf ~/.local/lib/python3.12/site-packages/spacy*")
+os.system("rm -rf ~/.local/lib/python3.12/site-packages/en_core_web_sm*")
+
+# Reinstall spacy
 os.system("pip install spacy")
 os.system("python -m spacy download en_core_web_sm")
+
+
 import spacy
-# Ensure spacy model is installed
+import os
+# Ensure spaCy is installed
+try:
+    import spacy
+except ImportError:
+    os.system("pip install spacy")
+
+# Ensure spaCy model is installed
 spacy_model = "en_core_web_sm"
+
 try:
     nlp = spacy.load(spacy_model)
 except OSError:
     os.system(f"python -m spacy download {spacy_model}")
+    os.system(f"python3 -m spacy download {spacy_model}")  # Extra step for compatibility
+    os.system(f"python3.12 -m spacy download {spacy_model}")  # Ensure for Python 3.12
     nlp = spacy.load(spacy_model)
 
 import streamlit as st
