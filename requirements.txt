@@ -1,6 +1,5 @@
 pdfminer3
-pyresparser
-streamlit
+streamlit==1.42.2
 pandas
 pafy
 plotly
@@ -8,7 +7,9 @@ pymysql
 streamlit-tags
 Pillow
 nltk
-spacy
+spacy==3.8.4
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0.tar.gz
 docx2txt
 pdfminer.six
+thinc==8.3.4
+pyresparser
