@@ -1,3 +1,10 @@
+import spacy
+import subprocess
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
+    nlp = spacy.load("en_core_web_sm")
 import streamlit as st
 import pandas as pd
 import base64,random
@@ -13,11 +20,16 @@ from streamlit_tags import st_tags
 from PIL import Image
 import pymysql
 from Courses import ds_course,web_course,android_course,ios_course,uiux_course,resume_videos,interview_videos
-import pafy #for uploading youtube videos
 import yt_dlp
+def get_video_info(url):
+    ydl_opts = {}
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=False)
+    return info
 import plotly.express as px #to create visualisations at the admin session
 import nltk
 import os
+
 # Define a custom path for NLTK data
 nltk_data_path = os.path.join(os.getcwd(), "nltk_data")
 os.makedirs(nltk_data_path, exist_ok=True)  # Create the directory if it doesn't exist
@@ -27,22 +39,16 @@ nltk.download('stopwords', download_dir=nltk_data_path)
 nltk.download('punkt', download_dir=nltk_data_path)
 nltk.download('stopwords')
 nltk.download('punkt')  # Required for pyresparser
-import spacy
-# Ensure the Spacy language model is available
-try:
-    spacy.load("en_core_web_sm")
-except:
-    spacy.cli.download("en_core_web_sm")
-    spacy.load("en_core_web_sm")
 from pyresparser import ResumeParser
 
 def fetch_yt_video(link):
-    """Fetch video title from YouTube link"""
+    """Fetch video title from YouTube link using yt-dlp"""
     try:
-        video = pafy.new(link)  # Fetch video details
-        return video.title
+        ydl_opts = {}
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(link, download=False)
+        return info.get('title', 'Unknown Title')
     except Exception as e:
-        # Handle errors gracefully
         return f"Error fetching video: {e}"
     
 def get_table_download_link(df,filename,text):
