@@ -1,10 +1,11 @@
 import os
 os.system("pip uninstall pafy -y")
 
-import spacy
 import os
-import subprocess
-
+# Ensure spacy and its model are installed
+os.system("pip install spacy")
+os.system("python -m spacy download en_core_web_sm")
+import spacy
 # Ensure spacy model is installed
 spacy_model = "en_core_web_sm"
 try:
