@@ -3,6 +3,7 @@ spacy==3.8.4
 thinc==8.3.4
 pdfminer3
 pandas
+yt-dlp
 pafy
 plotly
 pymysql
@@ -12,3 +13,4 @@ nltk
 docx2txt
 pdfminer.six
 pyresparser
+
