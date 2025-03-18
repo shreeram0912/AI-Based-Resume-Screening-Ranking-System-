@@ -1,3 +1,6 @@
+import os
+os.system("pip uninstall pafy -y")
+
 import spacy
 import subprocess
 try:
